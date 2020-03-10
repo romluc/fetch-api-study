@@ -5,9 +5,7 @@ const btnJson = document.querySelector('#get-json');
 const btnApi = document.querySelector('#get-api-data');
 const btnAdd = document.querySelector('#add-data');
 
-const textOutput = document.querySelector('.text-output');
-const jsonOutput = document.querySelector('.json-output');
-const apiOutput = document.querySelector('.api-output');
+const output = document.querySelector('.output');
 
 // Event Listeners
 btnText.addEventListener('click', getText);
@@ -18,7 +16,16 @@ btnAdd.addEventListener('click', addData);
 function getText() {
   fetch('sample.txt')
     .then(res => res.text())
-    .then(data => (textOutput.innerHTML = data))
+    .then(data => {
+      let outputData = `
+        <div class="container mb-3"
+          <h2 class="mb-2">Text from .txt file</h2>
+          <h3>${data}</h3>
+        </div>
+        `;
+
+      output.innerHTML = outputData;
+    })
     .catch(err => console.log(err));
 }
 
@@ -26,17 +33,17 @@ function getJson() {
   fetch('users.json')
     .then(res => res.json())
     .then(data => {
-      let output = '<h2>Users from JSON file</h2>';
+      let outputData = '<h2 class="mb-3">Users from JSON file</h2>';
       data.forEach(user => {
-        output += `
-          <ul>
-            <li>User Id: ${user.id}</li>
-            <li>User Name: ${user.name}</li>
-            <li>User e-mail: ${user.email}</li>
+        outputData += `
+          <ul class="list-group mb-3">
+            <li class="list-group-item">User Name: ${user.name}</li>
+            <li class="list-group-item">User Id: ${user.id}</li>
+            <li class="list-group-item">User e-mail: ${user.email}</li>
           </ul>
         `;
       });
-      jsonOutput.innerHTML = output;
+      output.innerHTML = outputData;
     })
     .catch(err => console.log(err));
 }
@@ -46,16 +53,18 @@ function getApiData() {
   fetch('http://dummy.restapiexample.com/api/v1/employees')
     .then(res => res.json())
     .then(data => {
-      let output = '<h2>API Data</h2>';
-      data.data.forEach(post => {
-        output += `
-            <div>
-              <h3>${post.id}</h3>
-              <p>${post.employee_name}</p>
+      let outputData = '<h2 class="mb-3">API Data</h2>';
+      data.data.forEach(item => {
+        outputData += `
+            <div class="card card-body mb-3">
+              <h5>Id: ${item.id}</h5>
+              <p>Name: ${item.employee_name}</p>
+              <p>Age: ${item.employee_age}</p>
+              <p>Salary: ${item.employee_salary}</p>
            </div>
           `;
       });
-      apiOutput.innerHTML = output;
+      output.innerHTML = outputData;
     });
 }
 
@@ -75,5 +84,5 @@ function addData(e) {
     body: JSON.stringify({ name, age, salary })
   })
     .then(res => res.json())
-    .then(data => console.log(data));
+    .then(data => (output.innerHTML += data.data));
 }
