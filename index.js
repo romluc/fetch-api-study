@@ -1,16 +1,19 @@
-const outputContainer = document.querySelector('.container');
+// DOM manipulation
 
 const btnText = document.querySelector('#get-text');
 const btnJson = document.querySelector('#get-json');
 const btnApi = document.querySelector('#get-api-data');
+const btnAdd = document.querySelector('#add-data');
 
 const textOutput = document.querySelector('.text-output');
 const jsonOutput = document.querySelector('.json-output');
 const apiOutput = document.querySelector('.api-output');
 
+// Event Listeners
 btnText.addEventListener('click', getText);
 btnJson.addEventListener('click', getJson);
 btnApi.addEventListener('click', getApiData);
+btnAdd.addEventListener('click', addData);
 
 function getText() {
   fetch('sample.txt')
@@ -39,24 +42,37 @@ function getJson() {
 }
 
 function getApiData() {
-  fetch('http://jsonplaceholder.typicode.com/posts/1')
-    .then(res => {
-      if (!res.ok) {
-        throw Error(res.statusText);
-      }
-      res.json();
-    })
+  // fetch('http://jsonplaceholder.typicode.com/posts')
+  fetch('http://dummy.restapiexample.com/api/v1/employees')
+    .then(res => res.json())
     .then(data => {
-      //   let output = '<h2>API Data</h2>';
-      //   data.forEach(post => {
-      //     output += `
-      //       <div>
-      //         <h3>${post.cod}</h3>
-      //         <p>${post.cnt}</p>
-      //       </div>
-      //     `;
-      //   });
-      console.log(data);
-      // apiOutput.innerHTML = output;
+      let output = '<h2>API Data</h2>';
+      data.data.forEach(post => {
+        output += `
+            <div>
+              <h3>${post.id}</h3>
+              <p>${post.employee_name}</p>
+           </div>
+          `;
+      });
+      apiOutput.innerHTML = output;
     });
+}
+
+function addData(e) {
+  e.preventDefault();
+
+  const id = document.querySelector('#id').value;
+  const name = document.querySelector('#name').value;
+
+  fetch('http://dummy.restapiexample.com/api/v1/create', {
+    method: 'POST',
+    header: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({ id: id, name: name })
+  })
+    .then(res => res.json())
+    .then(data => console.log(data));
 }
