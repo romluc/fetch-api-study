@@ -62,8 +62,9 @@ function getApiData() {
 function addData(e) {
   e.preventDefault();
 
-  const id = document.querySelector('#id').value;
   const name = document.querySelector('#name').value;
+  const age = document.querySelector('#age').value;
+  const salary = document.querySelector('#salary').value;
 
   fetch('http://dummy.restapiexample.com/api/v1/create', {
     method: 'POST',
@@ -71,7 +72,7 @@ function addData(e) {
       Accept: 'application/json, text/plain, */*',
       'Content-type': 'application/json'
     },
-    body: JSON.stringify({ id: id, name: name })
+    body: JSON.stringify({ name, age, salary })
   })
     .then(res => res.json())
     .then(data => console.log(data));
