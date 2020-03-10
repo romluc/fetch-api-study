@@ -4,29 +4,61 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fetch API sandbox</title>
+
+    <!-- Boostratp CDN - Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <button id="get-text">Get Text</button>
-    <button id="get-json">Get JSON</button>
-    <button id="get-api-data">Get API data</button>
-    <hr />
-    <div class="text-output"></div>
-    <div class="json-output"></div>
-    <div class="api-output">
+    <div class="container">
+      <h1 class="display-4 mb-4 text-center">Fetch API Practice</h1>
+
+      <div class="d-flex">
+        <button class="btn btn-success mr-2" id="get-text">Get Text</button>
+        <button class="btn btn-info mr-2" id="get-json">
+          Get JSON
+        </button>
+        <button class="btn btn-warning" id="get-api-data">Get API data</button>
+      </div>
+
+      <hr />
+
+      <div class="text-output"></div>
+      <div class="json-output"></div>
+      <div class="api-output"></div>
+
       <form id="add-data">
-        <div>
-          <input id="name" placeholder="Name"></input>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control mb-2"
+            id="name"
+            placeholder="Name"
+          />
+          <div>
+            <input
+              type="text"
+              class="form-control mb-2"
+              id="age"
+              placeholder="Age"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              class="form-control"
+              id="salary"
+              placeholder="Salary"
+            />
+          </div>
         </div>
-        <div>
-          <input id="age" placeholder="Age" />
-        </div>
-        <div>
-          <input id="salary" placeholder="Salary" />
-        </div>
-        <input type="submit" value="Submit" />
+        <input class="btn btn-secondary" type="submit" value="Submit" />
       </form>
     </div>
-
     <script src="index.js"></script>
   </body>
 </html>
